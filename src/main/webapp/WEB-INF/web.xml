@@ -4,5 +4,66 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-  <display-name>My Greatest Web Application</display-name>
+    <display-name>My Greatest Web Application</display-name>
+
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>ru.semenov.servlets.MainServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>ru.semenov.servlets.CartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CatalogServlet</servlet-name>
+        <servlet-class>ru.semenov.servlets.CatalogServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>ru.semenov.servlets.OrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>ru.semenov.servlets.ProductServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatalogServlet</servlet-name>
+        <url-pattern>/catalog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>Utf8Filter</filter-name>
+        <filter-class>ru.semenov.filters.Utf8Filter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Utf8Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error404.html</location> <!-- /src/main/webapp/error-404.html-->
+    </error-page>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error403.html</location> <!-- /src/main/webapp/error-404.html-->
+    </error-page>
 </web-app>
