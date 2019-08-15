@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 public class CatalogServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(CatalogServlet.class);
-    private static final String PAGE = "catalog.html";
+    private static final String PAGE = "catalog.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(req.getServletContext().getResourceAsStream(PAGE)));
-        resp.getWriter().print(reader.lines().collect(Collectors.joining()));
+        req.setAttribute("title", "Catalog");
+        req.getRequestDispatcher("WEB-INF/views/" + PAGE).forward(req, resp);
     }
 }
