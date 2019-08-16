@@ -7,18 +7,15 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
 
 public class CartServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(CartServlet.class);
-    private static final String PAGE = "cart.html";
+    private static final String PAGE = "cart.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(req.getServletContext().getResourceAsStream(PAGE)));
-        resp.getWriter().print(reader.lines().collect(Collectors.joining()));
+        req.setAttribute("title", "Cart");
+        req.getRequestDispatcher("WEB-INF/views/" + PAGE).forward(req, resp);
     }}

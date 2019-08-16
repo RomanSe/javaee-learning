@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 public class MainServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(MainServlet.class);
-    private static final String PAGE = "main.html";
+    private static final String PAGE = "main.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(req.getServletContext().getResourceAsStream(PAGE)));
-        resp.getWriter().print(reader.lines().collect(Collectors.joining()));
+        req.setAttribute("title", "Main page");
+        req.getRequestDispatcher("WEB-INF/views/" + PAGE).forward(req, resp);
     }
 }
 
