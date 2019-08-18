@@ -9,10 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
 
 public class ProductServlet extends HttpServlet {
 
@@ -52,7 +49,7 @@ public class ProductServlet extends HttpServlet {
             throw new ServletException("There is no product " + id);
         product.setName(req.getParameter("name"));
         product.setDescription(req.getParameter("description"));
-        productRepository.update(product);
+        productRepository.merge(product);
 
         req.setAttribute("title", "Product");
         req.setAttribute("product", product);

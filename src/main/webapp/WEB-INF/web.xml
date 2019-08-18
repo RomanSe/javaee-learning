@@ -6,6 +6,11 @@
          version="4.0">
     <display-name>My Greatest Web Application</display-name>
 
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>ru.semenov.servlets.MainServlet</servlet-class>

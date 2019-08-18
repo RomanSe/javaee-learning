@@ -18,6 +18,8 @@ public class ProductsBean implements Serializable {
 
     private Logger logger = LoggerFactory.getLogger(ProductsBean.class);
 
+    private Product product;
+
     @Inject
     private ProductRepository productRepository;
 
@@ -26,4 +28,22 @@ public class ProductsBean implements Serializable {
         return productRepository.getAll();
     }
 
+    public String editProduct(Product product) {
+        this.product = product;
+        return "/product.xhtml?faces-redirect=true";
+    }
+
+    public String createProduct() {
+        this.product = new Product();
+        return "/product.xhtml?faces-redirect=true";
+    }
+
+    public void deleteProduct(Product product) {
+        productRepository.delete(product);
+    }
+
+    public String saveProduct() {
+        productRepository.merge(this.product);
+        return "/products.xhtml?faces-redirect=true";
+    }
 }

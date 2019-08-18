@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:include src="WEB-INF/jsf-parts/header.xhtml">
+    <ui:param name="title" value="#{title}"/>
+</ui:include>
+
+<h:body>
+
+    <h:form>
+        <input type="text" id="id" hidden value="${product.id}">
+        <div class="form-group">
+            <label>Product # <c:out value="${product.id}"/></label>
+        </div>
+        <div class="form-row">
+            <c:url value="/images/${product.image}" var="imageUrl"/>
+            <div class="form-group">
+                <img src="${imageUrl}">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" id="inputName" placeholder="Name"
+                       value="${product.name}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputDescription">Description</label>
+            <input type="text" class="form-control" name="description" id="inputDescription" placeholder="Description"
+                   value="${product.description}">
+        </div>
+        <button type="submit" class="btn btn-primary" formmethod="post">Submit</button>
+    </h:form>
+
+    <ui:include src="WEB-INF/jsf-parts/footer.xhtml"/>
+
+</h:body>
+</html>

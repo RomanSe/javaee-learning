@@ -34,9 +34,13 @@ public class ProductRepository implements Serializable {
     public ProductRepository() {
     }
 
-    public void update(Product product) {
+    public void merge(Product product) {
+        products.put(product.getId(), product);
+    }
+
+    public void delete(Product product) {
         if (products.containsKey(product.getId())) {
-            products.put(product.getId(), product);
+            products.remove(product.getId());
         }
     }
 }
