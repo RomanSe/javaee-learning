@@ -1,17 +1,40 @@
 package ru.semenov.entities;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Product {
     private int id;
+
+    @NotNull(message = "Поле не должно быть пустым")
+
     private String name;
     private String description;
     private String image;
-    private int price;
+    private String imageContentType;
 
-    public Product() {
+    public String getImageContentType() {
+        return imageContentType;
     }
 
-    public Product(int id, String name, String description, String image, int price) {
-        this.id = id;
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
+
+    @NotNull(message = "Поле не должно быть пустым")
+    @Min(value = 0, message = "Цена должна быть больше 0")
+    private Integer price;
+
+    private static AtomicInteger COUNTER = new AtomicInteger();
+
+    public Product() {
+        this.id = COUNTER.incrementAndGet();
+    }
+
+    public Product(String name, String description, String image, Integer price) {
+        this.id = COUNTER.incrementAndGet();
         this.name = name;
         this.description = description;
         this.image = image;
@@ -42,11 +65,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

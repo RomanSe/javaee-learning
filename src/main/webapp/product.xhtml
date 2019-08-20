@@ -7,35 +7,57 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <ui:include src="WEB-INF/jsf-parts/header.xhtml">
-    <ui:param name="title" value="#{title}"/>
+    <ui:param name="title" value="Product"/>
 </ui:include>
 
 <h:body>
 
-    <h:form>
-        <input type="text" id="id" hidden value="${product.id}">
-        <div class="form-group">
-            <label>Product # <c:out value="${product.id}"/></label>
-        </div>
-        <div class="form-row">
-            <c:url value="/images/${product.image}" var="imageUrl"/>
-            <div class="form-group">
-                <img src="${imageUrl}">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="name" id="inputName" placeholder="Name"
-                       value="${product.name}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputDescription">Description</label>
-            <input type="text" class="form-control" name="description" id="inputDescription" placeholder="Description"
-                   value="${product.description}">
-        </div>
-        <button type="submit" class="btn btn-primary" formmethod="post">Submit</button>
+    <h:form id="main">
+        <p:panel header="Product">
+            <p:messages/>
+
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="@next" value="#"/>
+                <h:outputText value="#{productsBean.product.id}" label="Id"/>
+                <p:message for="@previous"/>
+
+                <p:outputLabel for="@next" value="Image"/>
+                <p:graphicImage value="#{productsBean.getImage(productsBean.product)}" label="Image"/>
+                <p:message for="@previous"/>
+
+                <p:outputLabel for="@next" value="Name"/>
+                <p:inputText value="#{productsBean.product.name}" label="Name"/>
+                <p:message for="@previous"/>
+
+                <p:outputLabel for="@next" value="Description"/>
+                <p:inputTextarea value="#{productsBean.product.description}" label="Id"/>
+                <p:message for="@previous"/>
+
+                <p:outputLabel for="@next" value="Price"/>
+                <p:inputText value="#{productsBean.product.price}" label="Price" converter="javax.faces.Integer"/>
+                <p:message for="@previous"/>
+
+            </h:panelGrid>
+
+            <p:fileUpload fileUploadListener="#{productsBean.handleFileUpload}" mode="advanced"
+                          update="messages" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                          label="Image"/>
+            <p:growl id="messages" showDetail="true"/>
+            <br></br>
+
+
+            <p:commandButton value="Submit" icon="pi pi-check" action="#{productsBean.saveProduct}"
+                             validateClient="true"/>
+        </p:panel>
     </h:form>
+
+
 
     <ui:include src="WEB-INF/jsf-parts/footer.xhtml"/>
 
+
+
 </h:body>
+
+
 </html>

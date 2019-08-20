@@ -14,9 +14,10 @@
 <h:body>
     <ui:include src="WEB-INF/jsf-parts/navigation.xhtml"/>
     <h1>Products</h1>
-    <h:form id="form">
 
-        <p:dataTable value="#{productsBean.all}" var="product"
+    <h:form id="form">
+        <p:commandButton action="#{productsBean.createProduct}" title="New product"/>
+        <p:dataTable id="productList" value="#{productsBean.all}" var="product"
                      styleClass="table table-hover"
                      headerClass="thead-dark">
             <p:column>
@@ -25,7 +26,7 @@
             </p:column>
             <p:column>
                 <f:facet name="header"></f:facet>
-                <h:graphicImage value="#{product.image}" alt="Product image"/>
+                <p:graphicImage value="#{productsBean.getImage(product)}" alt="Product image"/>
             </p:column>
             <p:column>
                 <f:facet name="header">Name</f:facet>
@@ -41,9 +42,13 @@
                 <i class="pi pi-pencil"></i>
             </p:column>
             <p:column>
-                <p:commandButton action="#{productsBean.editProduct(product)}" icon="icon-on-button fa fa-fw fa-edit" title="Edit"/>
+                <p:commandButton action="#{productsBean.editProduct(product)}" icon="fa fa-fw fa-edit"
+                                 title="Edit"/>
+                <p:commandButton action="#{productsBean.deleteProduct(product)}" icon="fa fa-fw fa-trash"
+                                 title="Delete" update="productList"/>
             </p:column>
         </p:dataTable>
+
     </h:form>
 
     <ui:include src="WEB-INF/jsf-parts/footer.xhtml"/>

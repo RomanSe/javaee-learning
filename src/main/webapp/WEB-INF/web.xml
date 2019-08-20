@@ -10,6 +10,15 @@
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
     </context-param>
+    <context-param>
+        <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL
+        </param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>images.path</param-name>
+        <param-value>/home/roman/images/products/</param-value>
+    </context-param>
 
     <servlet>
         <servlet-name>MainServlet</servlet-name>
