@@ -22,7 +22,7 @@
                 <p:message for="@previous"/>
 
                 <p:outputLabel for="@next" value="Image"/>
-                <p:graphicImage value="#{productsBean.getImage(productsBean.product)}" label="Image"/>
+                <img src="#{productsBean.imagePath}#{productsBean.product.image}" alt="Product image" width="100px" height="100px"/>
                 <p:message for="@previous"/>
 
                 <p:outputLabel for="@next" value="Name"/>

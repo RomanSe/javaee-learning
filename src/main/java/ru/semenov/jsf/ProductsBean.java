@@ -31,14 +31,16 @@ import java.util.List;
 @Named
 public class ProductsBean implements Serializable {
 
+    private static final String IMAGE_PATH= "/img/products/";
     private Logger logger = LoggerFactory.getLogger(ProductsBean.class);
-
-    private UploadedFile file;
-
     private Product product;
 
     @Inject
     private ProductRepository productRepository;
+
+    public String getImagePath() {
+        return IMAGE_PATH;
+    }
 
     public Product getProduct() {
         return product;
@@ -54,13 +56,11 @@ public class ProductsBean implements Serializable {
     }
 
     public String editProduct(Product product) {
-        this.file = null;
         this.product = product;
         return "/product.xhtml?faces-redirect=true";
     }
 
     public String createProduct() {
-        this.file = null;
         this.product = new Product();
         return "/product.xhtml?faces-redirect=true";
     }
@@ -71,35 +71,19 @@ public class ProductsBean implements Serializable {
 
     public String saveProduct() {
         productRepository.merge(product);
-        this.file = null;
         return "/catalog.xhtml?faces-redirect=true";
-    }
-
-    public UploadedFile getFile() {
-        return file;
-    }
-
-    public void setFile(UploadedFile file) {
-        this.file = file;
-    }
-
-    public void upload() {
-        logger.info("File uploader");
-        if (file != null) {
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
     }
 
     public void handleFileUpload(FileUploadEvent event) throws IOException {
         logger.info(event.getFile().getFileName() + " is uploaded.");
-        file = event.getFile();
+        UploadedFile file = event.getFile();
         FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        Path path = Paths.get(context.getInitParameter("images.path"), product.getId() + "." + FilenameUtils.getExtension(file.getFileName()));
+        String fileName = product.getId() + "." + FilenameUtils.getExtension(file.getFileName());
+        Path path = Paths.get(context.getInitParameter("images.path"), "products", fileName);
         Files.copy(file.getInputstream(), path, StandardCopyOption.REPLACE_EXISTING);
         logger.info("File " + path + " is saved");
-        product.setImage(path.toString());
+        product.setImage(fileName);
         product.setImageContentType(file.getContentType());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

@@ -17,7 +17,7 @@
     </context-param>
     <context-param>
         <param-name>images.path</param-name>
-        <param-value>/home/roman/images/products/</param-value>
+        <param-value>/Users/Shared/img/</param-value>
     </context-param>
 
     <servlet>
