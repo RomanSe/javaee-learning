@@ -2,11 +2,18 @@ package ru.semenov.repositories;
 
 import ru.semenov.entities.Product;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import javax.inject.Singleton;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ProductRepository {
+@ApplicationScoped
+@Named
+public class ProductRepository implements Serializable {
 
     private HashMap<Integer, Product> products = new HashMap<>();
 
@@ -24,9 +31,16 @@ public class ProductRepository {
         return null;
     }
 
-    public void update(Product product) {
+    public ProductRepository() {
+    }
+
+    public void merge(Product product) {
+        products.put(product.getId(), product);
+    }
+
+    public void delete(Product product) {
         if (products.containsKey(product.getId())) {
-            products.put(product.getId(), product);
+            products.remove(product.getId());
         }
     }
 }
