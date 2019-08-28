@@ -1,18 +1,25 @@
 package ru.semenov.entities;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Entity
+@Table(name = "product")
 public class Product {
+    @Id
+    @GeneratedValue
     private int id;
 
     @NotNull(message = "Поле не должно быть пустым")
-
     private String name;
     private String description;
     private String image;
     private String imageContentType;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private Set<OrderRecord> orderRecord;
 
     public String getImageContentType() {
         return imageContentType;
@@ -81,4 +88,11 @@ public class Product {
         this.image = image;
     }
 
+    public Set<OrderRecord> getOrderRecord() {
+        return orderRecord;
+    }
+
+    public void setOrderRecord(Set<OrderRecord> orderRecord) {
+        this.orderRecord = orderRecord;
+    }
 }
