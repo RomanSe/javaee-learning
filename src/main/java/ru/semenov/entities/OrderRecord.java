@@ -1,10 +1,26 @@
 package ru.semenov.entities;
 
+import javax.persistence.*;
+
+@Entity
 public class OrderRecord {
+    @Id
+    @GeneratedValue
     private int id;
     private int count;
     private int totalCost;
+    @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public OrderRecord() {
     }

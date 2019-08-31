@@ -1,15 +1,21 @@
 package ru.semenov.entities;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Order {
+    @Id
+    @GeneratedValue
     private int id;
     private String buyer;
     private String address;
     private Date orderDate;
+    @OneToMany(fetch = FetchType.EAGER)
     private List<OrderRecord> orderRecords;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     public Order() {
