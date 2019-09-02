@@ -17,18 +17,28 @@ public class Order {
     private List<OrderRecord> orderRecords;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+    @ManyToOne
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Order() {
         orderRecords = new ArrayList<>();
     }
 
-    public Order(int id, String buyer, String address, Date orderDate, List<OrderRecord> orderRecords, OrderStatus status) {
-        this.id = id;
+    public Order(String buyer, String address, Date orderDate, List<OrderRecord> orderRecords, OrderStatus status, User user) {
         this.buyer = buyer;
         this.address = address;
         this.orderDate = orderDate;
         this.orderRecords = orderRecords;
         this.status = status;
+        this.user = user;
     }
 
     public int getId() {

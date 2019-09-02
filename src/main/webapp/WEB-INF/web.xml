@@ -15,10 +15,6 @@
         </param-name>
         <param-value>true</param-value>
     </context-param>
-    <context-param>
-        <param-name>images.path</param-name>
-        <param-value>/Users/Shared/img/</param-value>
-    </context-param>
 
     <servlet>
         <servlet-name>MainServlet</servlet-name>

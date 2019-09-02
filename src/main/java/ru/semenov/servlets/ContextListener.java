@@ -23,12 +23,12 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ServletContext context = sce.getServletContext();
-        logger.info("Context intialization:" + context.getContextPath());
-        context.setAttribute("productRepository", productRepository);
-        for (int i = 0; i < 10; i++) {
-            productRepository.insert(new Product("Name " + i, "Description 1", "100.png", i));
-        }
-        logger.info("Products were added");
+//        ServletContext context = sce.getServletContext();
+//        logger.info("Context intialization:" + context.getContextPath());
+//        context.setAttribute("productRepository", productRepository);
+//        for (int i = 0; i < 10; i++) {
+//            productRepository.insert(new Product("Name " + i, "Description 1", "100.png", i));
+//        }
+//        logger.info("Products were added");
     }
 }

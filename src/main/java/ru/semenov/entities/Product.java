@@ -95,4 +95,16 @@ public class Product {
     public void setOrderRecord(Set<OrderRecord> orderRecord) {
         this.orderRecord = orderRecord;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", imageContentType='" + imageContentType + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

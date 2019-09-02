@@ -1,7 +1,11 @@
 package ru.semenov.repositories;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.semenov.entities.Product;
+import ru.semenov.servlets.ContextListener;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -16,9 +20,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class ProductRepository implements Serializable {
+
+    private Logger logger = LoggerFactory.getLogger(ProductRepository.class);
 
     @PersistenceContext(name = "ds")
     protected EntityManager em;
@@ -47,6 +52,8 @@ public class ProductRepository implements Serializable {
 
     @Transactional
     public void delete(Product entity) {
+        logger.info(entity.toString());
+        logger.info("em.contains(entity):" + em.contains(entity));
         em.remove(em.contains(entity) ? entity : em.merge(entity));
     }
 
