@@ -2,6 +2,7 @@ package ru.semenov.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,11 +11,10 @@ public class Order {
     @Id
     @GeneratedValue
     private int id;
-    private String buyer;
     private String address;
     private Date orderDate;
     @OneToMany(fetch = FetchType.EAGER)
-    private List<OrderRecord> orderRecords;
+    private List<OrderRecord> orderRecords = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @ManyToOne
@@ -29,15 +29,11 @@ public class Order {
     }
 
     public Order() {
-        orderRecords = new ArrayList<>();
     }
 
-    public Order(String buyer, String address, Date orderDate, List<OrderRecord> orderRecords, OrderStatus status, User user) {
-        this.buyer = buyer;
-        this.address = address;
-        this.orderDate = orderDate;
-        this.orderRecords = orderRecords;
-        this.status = status;
+    public Order(User user) {
+        this.orderDate = Calendar.getInstance().getTime();
+        this.status = OrderStatus.NEW;
         this.user = user;
     }
 
@@ -47,14 +43,6 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
     }
 
     public String getAddress() {

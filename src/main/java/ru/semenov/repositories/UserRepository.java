@@ -40,7 +40,7 @@ public class UserRepository {
 
     @Transactional
     public void delete(User entity) {
-        em.remove(em.contains(entity) ? entity : em.merge(entity));
+        em.remove(findById(entity.getId()));
     }
 
     public List<Product> findByName(String namePart) {

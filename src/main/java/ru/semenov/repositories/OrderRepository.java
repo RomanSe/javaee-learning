@@ -1,16 +1,11 @@
 package ru.semenov.repositories;
 
 import ru.semenov.entities.Order;
-import ru.semenov.entities.Product;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
@@ -45,7 +40,7 @@ public class OrderRepository implements Serializable {
 
     @Transactional
     public void delete(Order entity) {
-        em.remove(em.contains(entity) ? entity : em.merge(entity));
+        em.remove(findById(entity.getId()));
     }
 
 }
