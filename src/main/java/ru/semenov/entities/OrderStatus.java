@@ -1,5 +1,5 @@
 package ru.semenov.entities;
 
 public enum OrderStatus {
-    NEW, PLACED, CONFIRMED, DELIVERY, DONE, REJECTED
+    NEW, CONFIRMED, DELIVERY, DONE, REJECTED
 }

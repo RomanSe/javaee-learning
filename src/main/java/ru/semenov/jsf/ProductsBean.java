@@ -9,13 +9,13 @@ import org.primefaces.shaded.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.semenov.entities.Product;
-import ru.semenov.repositories.ProductRepository;
+import ru.semenov.services.ProductService;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,8 +35,8 @@ public class ProductsBean implements Serializable {
     private Logger logger = LoggerFactory.getLogger(ProductsBean.class);
     private Product product;
 
-    @Inject
-    private ProductRepository productRepository;
+    @EJB
+    private ProductService productService;
 
     public String getImagePath() {
         return IMAGE_PATH;
@@ -51,8 +51,8 @@ public class ProductsBean implements Serializable {
     }
 
     public List<Product> getAll() {
-        logger.info("Get all products:" + productRepository.getAll().size());
-        return productRepository.getAll();
+        logger.info("Get all products:" + productService.getAll().size());
+        return productService.getAll();
     }
 
     public String editProduct(Product product) {
@@ -66,11 +66,11 @@ public class ProductsBean implements Serializable {
     }
 
     public void deleteProduct(Product product) {
-        productRepository.delete(product);
+        productService.delete(product);
     }
 
     public String saveProduct() {
-        productRepository.merge(product);
+        productService.merge(product);
         return "/catalog.xhtml?faces-redirect=true";
     }
 

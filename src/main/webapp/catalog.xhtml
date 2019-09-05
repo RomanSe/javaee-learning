@@ -46,6 +46,8 @@
                                  title="Edit"/>
                 <p:commandButton action="#{productsBean.deleteProduct(product)}" icon="fa fa-fw fa-trash"
                                  title="Delete" update="productList"/>
+                <p:commandButton action="#{orderBean.addProduct(product)}" icon="fa fa-fw fa-plus"
+                                 title="Add" update="productList"/>
             </p:column>
         </p:dataTable>
 

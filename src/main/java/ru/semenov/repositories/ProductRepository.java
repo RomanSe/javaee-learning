@@ -1,24 +1,27 @@
 package ru.semenov.repositories;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.semenov.entities.Product;
+import ru.semenov.services.MethodLogger;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import javax.inject.Singleton;
+import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class ProductRepository implements Serializable {
+
+    private Logger logger = LoggerFactory.getLogger(ProductRepository.class);
 
     @PersistenceContext(name = "ds")
     protected EntityManager em;
@@ -46,8 +49,9 @@ public class ProductRepository implements Serializable {
     }
 
     @Transactional
+    @Interceptors({MethodLogger.class})
     public void delete(Product entity) {
-        em.remove(em.contains(entity) ? entity : em.merge(entity));
+        em.remove(findById(entity.getId()));
     }
 
     public List<Product> findByName(String namePart) {

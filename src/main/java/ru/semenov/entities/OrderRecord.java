@@ -25,8 +25,7 @@ public class OrderRecord {
     public OrderRecord() {
     }
 
-    public OrderRecord(int id, int count, int totalCost, Product product) {
-        this.id = id;
+    public OrderRecord(int count, int totalCost, Product product) {
         this.count = count;
         this.totalCost = totalCost;
         this.product = product;
