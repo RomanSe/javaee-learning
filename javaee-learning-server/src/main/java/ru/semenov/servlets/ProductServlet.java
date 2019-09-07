@@ -24,7 +24,7 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("title", "Product");
-        Integer id = Integer.parseInt(req.getParameter("id"));
+        int id = Integer.parseInt(req.getParameter("id"));
         Product product = productService.findById(id);
         if (product == null)
             throw new ServletException("There is no product " + id);
@@ -37,7 +37,7 @@ public class ProductServlet extends HttpServlet {
         logger.info("Product post: #" + req.getParameter("id") + " name = " + req.getParameter("name") + " description="+ req.getParameter("description"));
 
 
-        Integer id = Integer.parseInt(req.getParameter("id"));
+        int id = Integer.parseInt(req.getParameter("id"));
         Product product = productService.findById(id);
         if (product == null)
             throw new ServletException("There is no product " + id);
