@@ -11,6 +11,7 @@
 
     <modules>
         <module>javaee-learning-server</module>
+        <module>javaee-learning-client</module>
     </modules>
 
     <properties>
