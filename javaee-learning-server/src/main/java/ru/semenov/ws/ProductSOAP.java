@@ -30,7 +30,7 @@ public class ProductSOAP {
 
     @WebMethod
     public void insert(@WebParam(name = "Product") ProductDTO productDTO) {
-        productService.insert(productDTO.getProduct());
+        productService.insert(productDTO.buildProduct());
     }
 
     @WebResult(name = "Product")
@@ -45,12 +45,12 @@ public class ProductSOAP {
 
     @WebMethod
     public void merge(@WebParam(name = "Product") ProductDTO productDTO) {
-        productService.merge(productDTO.getProduct());
+        productService.merge(productDTO.buildProduct());
     }
 
     @WebMethod
     public void delete(@WebParam(name = "Product") ProductDTO entity) {
-        productService.delete(entity.getProduct());
+        productService.delete(entity.buildProduct());
     }
 
     @WebResult(name = "Product")

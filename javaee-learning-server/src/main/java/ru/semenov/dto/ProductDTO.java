@@ -29,7 +29,7 @@ public class ProductDTO {
         price = product.getPrice();
     }
 
-    public Product getProduct() {
+    public Product buildProduct() {
         Product product = new Product(name, description, image, price);
         if (id != 0) {
             product.setId(id);
