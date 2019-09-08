@@ -6,14 +6,18 @@ import ru.semenov.repositories.UserRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Stateful
+@Stateless
 public class UserService {
 
     @EJB
     UserRepository userRepository;
+
+    public UserService() {
+    }
 
     @Transactional
     public void insert(User user) {
