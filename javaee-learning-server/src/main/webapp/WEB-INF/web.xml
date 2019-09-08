@@ -91,4 +91,23 @@
         <error-code>403</error-code>
         <location>/error403.html</location> <!-- /src/main/webapp/error-404.html-->
     </error-page>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>RealmUsersRoles</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error403.html</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin</web-resource-name>
+            <url-pattern>/product.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
 </web-app>
