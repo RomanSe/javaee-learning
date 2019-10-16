@@ -3,6 +3,9 @@ package ru.semenov.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,33 +18,23 @@ public class Product {
 
     @NotNull(message = "Поле не должно быть пустым")
     private String name;
+
     private String description;
+
     private String image;
-    private String imageContentType;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Set<OrderRecord> orderRecord;
-
-    public String getImageContentType() {
-        return imageContentType;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-    }
-
 
     @NotNull(message = "Поле не должно быть пустым")
     @Min(value = 0, message = "Цена должна быть больше 0")
     private Integer price;
 
-    private static AtomicInteger COUNTER = new AtomicInteger();
 
     public Product() {
-        this.id = COUNTER.incrementAndGet();
     }
 
     public Product(String name, String description, String image, Integer price) {
-        this.id = COUNTER.incrementAndGet();
         this.name = name;
         this.description = description;
         this.image = image;
@@ -103,7 +96,6 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
-                ", imageContentType='" + imageContentType + '\'' +
                 ", price=" + price +
                 '}';
     }

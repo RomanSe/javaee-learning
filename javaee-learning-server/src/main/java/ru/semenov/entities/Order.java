@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "ProductOrder")
 public class Order {
     @Id
     @GeneratedValue
@@ -16,6 +17,7 @@ public class Order {
     @OneToMany(fetch = FetchType.EAGER)
     private List<OrderRecord> orderRecords = new ArrayList<>();
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     private OrderStatus status;
     @ManyToOne
     private User user;

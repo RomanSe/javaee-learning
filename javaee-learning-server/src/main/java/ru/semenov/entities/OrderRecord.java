@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 public class OrderRecord {
     @Id
-    @GeneratedValue
     private int id;
     private int count;
     private int totalCost;
@@ -61,5 +60,16 @@ public class OrderRecord {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderRecord{" +
+                "id=" + id +
+                ", count=" + count +
+                ", totalCost=" + totalCost +
+                ", product=" + product +
+                ", order=" + order +
+                '}';
     }
 }

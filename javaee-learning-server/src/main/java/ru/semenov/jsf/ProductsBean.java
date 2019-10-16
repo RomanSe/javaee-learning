@@ -84,15 +84,14 @@ public class ProductsBean implements Serializable {
         Files.copy(file.getInputstream(), path, StandardCopyOption.REPLACE_EXISTING);
         logger.info("File " + path + " is saved");
         product.setImage(fileName);
-        product.setImageContentType(file.getContentType());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public StreamedContent getImage(Product product) {
-        logger.info("Getting image " + product.getImage() + " with content-type " + product.getImageContentType());
+        logger.info("Getting image " + product.getImage());
         if (product.getImage() != null) {
             try {
-                return new DefaultStreamedContent(new FileInputStream(product.getImage()), product.getImageContentType());
+                return new DefaultStreamedContent(new FileInputStream(product.getImage()));
             } catch (FileNotFoundException e) {
                 logger.warn("Image no found: " + product.getImage());
             }

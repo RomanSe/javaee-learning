@@ -1,6 +1,7 @@
 package ru.semenov.repositories;
 
 import ru.semenov.entities.Order;
+import ru.semenov.entities.OrderRecord;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,7 +26,7 @@ public class OrderRepository implements Serializable {
     }
 
     public List<Order> getAll() {
-        Query q = em.createQuery("select t from Order t");
+        Query q = em.createQuery("select t from Order t left join fetch t.orderRecords", Order.class);
         return q.getResultList();
     }
 
@@ -34,8 +35,12 @@ public class OrderRepository implements Serializable {
     }
 
     @Transactional
-    public void merge(Order Order) {
-        em.merge(Order);
+
+    public void merge(Order order) {
+        for (OrderRecord orderRecord: order.getOrderRecords()) {
+            em.merge(orderRecord);
+        }
+        em.merge(order);
     }
 
     @Transactional
