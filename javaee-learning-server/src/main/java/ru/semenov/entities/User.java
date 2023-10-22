@@ -1,10 +1,10 @@
 package ru.semenov.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,22 +13,34 @@ public class User implements Serializable {
 
     @Id
     private int id;
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
     private String passwordHash;
+    private String password;
     private String address;
     private String phoneNumber;
     @OneToMany
     private Set<Order> orders;
+    @ManyToMany(cascade=CascadeType.ALL)
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String name, String passwordHash, String address, String phoneNumber) {
-        this.id = id;
+    public User(String name, String password, String address, String phoneNumber) {
         this.name = name;
-        this.passwordHash = passwordHash;
+        this.password = password;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.roles = new HashSet<>();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<Order> getOrders() {
@@ -77,5 +89,17 @@ public class User implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
     }
 }
